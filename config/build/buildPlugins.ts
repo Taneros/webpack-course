@@ -3,16 +3,29 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import path from 'path'
 import type { Configuration } from 'webpack'
 import webpack from 'webpack'
+import { EMode, IEnvVariable } from '../../webpack.config'
+import { IBuildPaths } from './types/types'
 
-export function buildPlugins(params: { isProdMode: boolean, isDevMode: boolean }): Configuration['plugins'] {
-  const { isDevMode, isProdMode } = params;
+export function buildPlugins(params: { env: IEnvVariable, paths: IBuildPaths }): Configuration['plugins'] {
+  const { env, paths } = params;
 
-  return [
-    new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }),
-    isDevMode && new webpack.ProgressPlugin(), // can slow production
-    isProdMode && new MiniCssExtractPlugin({
+  const isDevMode = env.mode === EMode['development']
+  const isProdMode = env.mode === EMode['production']
+
+  const plugins: Configuration['plugins'] = [
+    new HtmlWebpackPlugin({ template: paths.html })
+  ]
+
+  if (isDevMode) {
+    plugins.push(new webpack.ProgressPlugin())
+  }
+
+  if (isProdMode) {
+    plugins.push(new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[name].[contenthash:8].css'
-    }),
-  ].filter(Boolean)
+    }))
+  }
+
+  return plugins
 }

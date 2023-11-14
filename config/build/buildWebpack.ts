@@ -1,40 +1,35 @@
 import { Configuration } from 'webpack'
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server'
-
-import path from 'path'
-
 import { buildDevServer } from './buildDevServer'
 import { EMode, IEnvVariable } from '../../webpack.config'
 import { buildLoaders } from './buildLoaders'
 import { buildPlugins } from './buildPlugins'
 import { buildResolvers } from './buildResolvers'
+import { IBuildPaths } from './types/types'
 
 interface IBuildWebpack {
   env: IEnvVariable,
+  paths: IBuildPaths,
 }
 
 export function buildWebpack(options: IBuildWebpack): Configuration {
 
-  const { env } = options;
-
-  const isDevMode = env.mode === EMode['development']
-  const isProdMode = env.mode === EMode['production']
-
+  const { env, paths } = options;
 
   return {
     mode: env.mode ?? 'development',
-    entry: path.resolve(__dirname, 'src', 'index.tsx'),
+    entry: paths.entry,
     output: {
-      path: path.resolve(__dirname, 'build'),
+      path: paths.output,
       filename: '[name].[contenthash:8].js',
       clean: true,
     },
-    plugins: buildPlugins({ isDevMode, isProdMode }),
+    plugins: buildPlugins({ env, paths }),
     module: {
-      rules: buildLoaders({ isDevMode }),
+      rules: buildLoaders({ env }),
     },
     resolve: buildResolvers(),
-    devtool: isDevMode ? 'eval-cheap-module-source-map' : false,
-    devServer: buildDevServer({ env, isDevMode })
+    devtool: env.mode === EMode['development'] ? 'eval-cheap-module-source-map' : false,
+    devServer: buildDevServer({ env })
   }
 }
