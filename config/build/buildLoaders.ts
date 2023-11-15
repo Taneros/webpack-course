@@ -7,13 +7,22 @@ export function buildLoaders(params: { env: IEnvVariable }): ModuleOptions['rule
 
   const isDevMode = env.mode === EMode['development']
 
+  const cssLoaderWithModules = {
+    loader: "css-loader",
+    options: {
+      modules: {
+        localIdentName: isDevMode ? '[name]__[local]--[hash:base64:8]' : '[hash:base64:8]',
+      },
+    }
+  }
+
   const scssLoader = {
     test: /\.s[ac]ss$/i,
     use: [
       // Creates `style` nodes from JS strings
       isDevMode ? 'style-loader' : MiniCssExtractPlugin.loader,
       // Translates CSS into CommonJS
-      "css-loader",
+      cssLoaderWithModules,
       // Compiles Sass to CSS
       "sass-loader",
     ],
