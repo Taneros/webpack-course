@@ -23,7 +23,7 @@ export function buildWebpack(options: IBuildWebpack): Configuration {
     module: {
       rules: buildLoaders({ env }),
     },
-    resolve: buildResolvers(),
+    resolve: buildResolvers({ paths }),
     devtool: env.mode === EMode['development'] ? 'eval-cheap-module-source-map' : false,
     devServer: buildDevServer({ env })
   }

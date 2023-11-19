@@ -4,9 +4,11 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { About } from './pages/About';
-import { Shop } from './pages/Shop';
+
+
 import { Suspense } from 'react';
+import { About } from '@/pages/About';
+import { Shop } from '@/pages/Shop';
 
 
 const root = document.getElementById('root')
