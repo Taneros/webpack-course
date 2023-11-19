@@ -2,16 +2,7 @@
 import { Configuration } from 'webpack'
 import { buildWebpack } from './config/build/buildWebpack'
 import path from 'path'
-
-export enum EMode {
-  development = 'development',
-  production = 'production',
-}
-
-export interface IEnvVariable {
-  mode: EMode
-  port: number
-}
+import { IEnvVariable } from './config/build/types/types'
 
 export default (env: IEnvVariable) => {
 
@@ -23,7 +14,7 @@ export default (env: IEnvVariable) => {
 
   env.port ?? (env.port = 3000)
 
-  const config: Configuration = buildWebpack({ env, paths })
+  const config: Configuration = buildWebpack({ env, paths, analyzer: env.analyzer })
 
 
   return config

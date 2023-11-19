@@ -1,13 +1,12 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import path from 'path'
 import type { Configuration } from 'webpack'
 import webpack from 'webpack'
-import { EMode, IEnvVariable } from '../../webpack.config'
-import { IBuildPaths } from './types/types'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import { EMode, IBuildWebpack } from './types/types'
 
-export function buildPlugins(params: { env: IEnvVariable, paths: IBuildPaths }): Configuration['plugins'] {
-  const { env, paths } = params;
+export function buildPlugins(params: IBuildWebpack): Configuration['plugins'] {
+  const { env, paths, analyzer } = params;
 
   const isDevMode = env.mode === EMode['development']
   const isProdMode = env.mode === EMode['production']
@@ -25,6 +24,10 @@ export function buildPlugins(params: { env: IEnvVariable, paths: IBuildPaths }):
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[name].[contenthash:8].css'
     }))
+  }
+
+  if (analyzer) {
+    plugins.push(new BundleAnalyzerPlugin())
   }
 
   return plugins

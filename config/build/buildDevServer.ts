@@ -1,5 +1,5 @@
-import { EMode, IEnvVariable } from '../../webpack.config';
-import type { Configuration } from 'webpack'
+import type { Configuration } from 'webpack';
+import { EMode, IEnvVariable } from './types/types';
 
 export function buildDevServer(params: { env: IEnvVariable }): Configuration['devServer'] {
   const { env } = params;
@@ -9,5 +9,6 @@ export function buildDevServer(params: { env: IEnvVariable }): Configuration['de
   return isDevMode ? {
     port: env.port ?? 3000,
     open: true,
+    historyApiFallback: true,
   } : undefined
 }

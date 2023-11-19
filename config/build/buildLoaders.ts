@@ -1,6 +1,6 @@
-import { ModuleOptions } from 'webpack'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import { EMode, IEnvVariable } from '../../webpack.config';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { ModuleOptions } from 'webpack';
+import { EMode, IEnvVariable } from './types/types';
 
 export function buildLoaders(params: { env: IEnvVariable }): ModuleOptions['rules'] {
   const { env } = params;
