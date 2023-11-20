@@ -4,9 +4,10 @@ export enum EMode {
 }
 
 export interface IEnvVariable {
-  mode: EMode;
-  port: number;
+  mode?: EMode;
+  port?: number;
   analyzer?: boolean;
+  platform?: 'mobile' | 'desktop'
 }
 
 
@@ -25,5 +26,4 @@ export interface BuildOptions {
 export interface IBuildWebpack {
   env: IEnvVariable;
   paths: IBuildPaths;
-  analyzer?: boolean;
 }

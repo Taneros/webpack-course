@@ -4,7 +4,7 @@ import { buildDevServer } from './buildDevServer'
 import { buildLoaders } from './buildLoaders'
 import { buildPlugins } from './buildPlugins'
 import { buildResolvers } from './buildResolvers'
-import { EMode, IBuildPaths, IBuildWebpack } from './types/types'
+import { EMode, IBuildWebpack } from './types/types'
 
 
 export function buildWebpack(options: IBuildWebpack): Configuration {
@@ -12,7 +12,7 @@ export function buildWebpack(options: IBuildWebpack): Configuration {
   const { env, paths } = options;
 
   return {
-    mode: env.mode ?? 'development',
+    mode: env.mode,
     entry: paths.entry,
     output: {
       path: paths.output,

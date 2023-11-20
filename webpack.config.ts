@@ -2,7 +2,7 @@
 import { Configuration } from 'webpack'
 import { buildWebpack } from './config/build/buildWebpack'
 import path from 'path'
-import { IEnvVariable } from './config/build/types/types'
+import { EMode, IEnvVariable } from './config/build/types/types'
 
 export default (env: IEnvVariable) => {
 
@@ -14,9 +14,10 @@ export default (env: IEnvVariable) => {
   }
 
   env.port ?? (env.port = 3000)
+  env.platform ?? (env.platform = 'desktop')
+  env.mode ?? (env.mode = EMode['development'])
 
-  const config: Configuration = buildWebpack({ env, paths, analyzer: env.analyzer })
-
+  const config: Configuration = buildWebpack({ env, paths })
 
   return config
 }

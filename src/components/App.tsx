@@ -8,16 +8,35 @@ export const App = () => {
   const [count, setCount] = useState(0)
 
 
+  if (__PLATFORM__ === 'desktop') {
 
-  return (
-    <>
-    <Link to={'/about'}>about</Link>
-    <Link to={'/shop'}>shop</Link>
-      <p>{count}</p>
-      <button className={styles.button} onClick={() => setCount(count + 1)}>UP</button>
-      {/* <img src={fearImg} alt="fear" /> */}
-      <Cloud fill="green" />
-      <Outlet />
-    </>
-  )
+    return (
+      <>
+        <Link to={'/about'}>about</Link>
+        <Link to={'/shop'}>shop</Link>
+        <h1>PLATFORM=desktop</h1>
+        <p>{count}</p>
+        <button className={styles.button} onClick={() => setCount(count + 1)}>UP</button>
+        {/* <img src={fearImg} alt="fear" /> */}
+        <Cloud fill="green" />
+        <Outlet />
+      </>
+    )
+  }
+
+  if (__PLATFORM__ === 'mobile') {
+
+    return (
+      <>
+        <Link to={'/about'}>about</Link>
+        <Link to={'/shop'}>shop</Link>
+        <h1>PLATFORM=mobile</h1>
+        <p>{count}</p>
+        <button className={styles.button} onClick={() => setCount(count + 1)}>UP</button>
+        {/* <img src={fearImg} alt="fear" /> */}
+        <Cloud fill="green" />
+        <Outlet />
+      </>
+    )
+  }
 }
