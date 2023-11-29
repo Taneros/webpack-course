@@ -1,6 +1,8 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { ModuleOptions } from 'webpack';
 import { EMode, IEnvVariable } from './types/types';
+import ReactRefreshTypeScript from 'react-refresh-typescript';
+
 
 export function buildLoaders(params: { env: IEnvVariable }): ModuleOptions['rules'] {
   const { env } = params;
@@ -59,6 +61,9 @@ export function buildLoaders(params: { env: IEnvVariable }): ModuleOptions['rule
       {
         loader: 'ts-loader',
         options: {
+          getCustomTransformers: () => ({
+            before: [isDevMode && ReactRefreshTypeScript()].filter(Boolean),
+          }),
           transpileOnly: true
         }
       }

@@ -5,6 +5,8 @@ import webpack from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import { EMode, IBuildWebpack } from './types/types'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+
 
 export function buildPlugins(params: IBuildWebpack): Configuration['plugins'] {
   const { env, paths } = params;
@@ -21,7 +23,11 @@ export function buildPlugins(params: IBuildWebpack): Configuration['plugins'] {
   ]
 
   if (isDevMode) {
-    plugins.push(...[new webpack.ProgressPlugin(), new ForkTsCheckerWebpackPlugin()])
+    plugins.push(...[
+      new webpack.ProgressPlugin(),
+      new ForkTsCheckerWebpackPlugin(),
+      new ReactRefreshWebpackPlugin()
+    ])
   }
 
   if (isProdMode) {
