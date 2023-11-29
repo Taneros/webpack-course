@@ -16,7 +16,6 @@ export const App = () => {
         <h1>PLATFORM=desktop</h1>
         <p>{count}</p>
         <button className={styles.button} onClick={() => setCount(count + 1)}>UP</button>
-        {/* <img src={fearImg} alt="fear" /> */}
         <Cloud fill="green" />
         <Outlet />
       </>
@@ -38,4 +37,6 @@ export const App = () => {
       </>
     )
   }
+
+  return null
 }

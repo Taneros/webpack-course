@@ -16,11 +16,7 @@ export interface IBuildPaths {
   html: string;
   output: string;
   src: string;
-}
-
-export interface BuildOptions {
-  port: number;
-  paths: IBuildPaths;
+  public: string;
 }
 
 export interface IBuildWebpack {
