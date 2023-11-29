@@ -55,7 +55,14 @@ export function buildLoaders(params: { env: IEnvVariable }): ModuleOptions['rule
 
   const tsLoader = {
     test: /\.tsx?$/,
-    use: 'ts-loader',
+    use: [
+      {
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true
+        }
+      }
+    ],
     exclude: /node_modules/,
   }
 
