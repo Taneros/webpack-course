@@ -5,7 +5,7 @@ import fearImg from '@/assets/fear.png'
 import Cloud from '@/assets/cloud-bolt-svgrepo-com.svg'
 
 export const App = () => {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState<number>(0)
 
 
   if (__PLATFORM__ === 'desktop') {

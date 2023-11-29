@@ -4,6 +4,7 @@ import { Configuration, DefinePlugin } from 'webpack'
 import webpack from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import { EMode, IBuildWebpack } from './types/types'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
 export function buildPlugins(params: IBuildWebpack): Configuration['plugins'] {
   const { env, paths } = params;
@@ -16,11 +17,11 @@ export function buildPlugins(params: IBuildWebpack): Configuration['plugins'] {
     new HtmlWebpackPlugin({ template: paths.html }),
     new DefinePlugin({
       __PLATFORM__: JSON.stringify(platform),
-    })
+    }),
   ]
 
   if (isDevMode) {
-    plugins.push(new webpack.ProgressPlugin())
+    plugins.push(...[new webpack.ProgressPlugin(), new ForkTsCheckerWebpackPlugin()])
   }
 
   if (isProdMode) {
