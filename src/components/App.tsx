@@ -11,6 +11,7 @@ export const App = () => {
 
     return (
       <>
+        <div data-testId='App.TestIdDesktop'></div>
         <Link to={'/about'}>about</Link>
         <Link to={'/shop'}>shop</Link>
         <h1>PLATFORM=desktop</h1>

@@ -2,6 +2,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { ModuleOptions } from 'webpack';
 import { EMode, IEnvVariable } from './types/types';
 import ReactRefreshTypeScript from 'react-refresh-typescript';
+import { buildBabelLoader } from './babel/buildBabelLoader';
 
 
 export function buildLoaders(params: { env: IEnvVariable }): ModuleOptions['rules'] {
@@ -71,22 +72,7 @@ export function buildLoaders(params: { env: IEnvVariable }): ModuleOptions['rule
     exclude: /node_modules/,
   }
 
-  const babelLoader = {
-    test: /\.tsx?$/,
-    exclude: /node_modules/,
-    use: {
-      loader: "babel-loader",
-      options: {
-        presets: [
-          '@babel/preset-env',
-          '@babel/preset-typescript',
-          ['@babel/preset-react', {
-            runtime: isDevMode ? 'automatic' : 'classic',
-          },]
-        ]
-      }
-    }
-  }
+  const babelLoader = buildBabelLoader({ env })
 
 
   return [
