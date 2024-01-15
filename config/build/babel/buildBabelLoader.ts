@@ -1,8 +1,6 @@
 import { EMode, IEnvVariable } from '../types/types';
 import { removeDataTestIdBabelPlugin } from './removeDataTestIdBabelPlugin';
 
-
-
 export function buildBabelLoader({ env }: { env: IEnvVariable }) {
 
   const isDevMode = env.mode === EMode['development']
